@@ -61,6 +61,10 @@ def index():
                 
                 mydict = {"Product": searchString, "Name": name, "Rating":rating, "CommentHead":heading,"Comment":custComment}
                 reviews.append(mydict)
+            client = pymongo.MongoClient("mongodb+srv://tharunsd23:4NmDhnibfq@cluster0.iunpd0a.mongodb.net/?retryWrites=true&w=majority")
+            db = client['web_scrapper']
+            collection = db['review_scrapper_pract']
+            collection.insert_many(reviews)
             return render_template('results.html', reviews=reviews[0:(len(reviews)-1)])
         except Exception as e:
             print('The Exception message is: ',e)
